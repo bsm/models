@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    errors:
+      messages:
+        abstract: "Record is abstract"
+        immutable: "Record cannot be updated"
