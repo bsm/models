@@ -13,13 +13,13 @@ module Bsm::Model::StiConvertable
   module ClassMethods
 
     # @Override: Allow to specify a kind
-    def new(attributes = nil, options = {}, &block)
+    def new(attributes = nil, *args, &block)
       kind  = (attributes = attributes.with_indifferent_access).delete(:kind) if attributes.is_a?(Hash)
       klass = real_descendants.find {|k| k.kind == kind }
       return super unless klass
 
-      klass.with_scope(current_scope) do
-        klass.new(attributes, options, &block)
+      klass.with_scope(respond_to?(:current_scope) ? current_scope : current_scoped_methods) do # AR 3.0 compatibility
+        klass.new(attributes, *args, &block)
       end
     end
 

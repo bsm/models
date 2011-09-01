@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    bsm_models (0.1.0)
+    bsm_models (0.2.1)
       abstract
-      rails (>= 3.0.0)
+      rails (>= 3.0.0, <= 3.2.0)
 
 GEM
   remote: http://rubygems.org/
