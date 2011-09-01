@@ -6,6 +6,11 @@ describe Bsm::Model::StiConvertable do
     Item::Base.new.should be_a(described_class)
   end
 
+  it 'should have be of a kind' do
+    Item::Special.kind.should == "special"
+    Item::Generic.new.kind.should == "generic"
+  end
+
   it 'should include eager descendants loading' do
     Item::Base.new.should be_a(Bsm::Model::EagerDescendants)
   end
