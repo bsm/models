@@ -5,6 +5,8 @@ module Bsm
     autoload :Abstract, 'bsm/model/abstract'
     autoload :Editable, 'bsm/model/editable'
     autoload :Deletable, 'bsm/model/deletable'
+    autoload :EagerDescendants, 'bsm/model/eager_descendants'
+    autoload :StiConvertable, 'bsm/model/sti_convertable'
   end
 
   class Railtie < ::Rails::Railtie
