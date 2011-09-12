@@ -15,7 +15,7 @@ module Bsm::Model::EagerDescendants
         load_path = Rails.root.join("app", "models")
         matcher   = /\A#{Regexp.escape(load_path.to_s)}\/(.*)\.rb\Z/
         Dir[load_path.join(self.parent_name.underscore, "**", "*.rb")].sort.each do |file|
-          file.sub(matcher, '\1').camelize.constantize
+          require file
         end
         @__eagerly_constantized = true
       end
