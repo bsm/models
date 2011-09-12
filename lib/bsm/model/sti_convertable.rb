@@ -15,6 +15,8 @@ module Bsm::Model::StiConvertable
     # @Override: Allow to specify a kind
     def new(attributes = nil, *args, &block)
       kind  = (attributes = attributes.with_indifferent_access).delete(:kind) if attributes.is_a?(Hash)
+      return super if real_type?
+
       klass = real_descendants.find {|k| k.kind == kind } || fallback_descendant
       return super if klass == self
 
