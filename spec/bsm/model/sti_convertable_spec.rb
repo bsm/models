@@ -23,6 +23,19 @@ describe Bsm::Model::StiConvertable do
     Item::Base.new(:kind => "generic").should be_a(Item::Generic)
   end
 
+  it 'should ignore invalid kinds' do
+    Item::Base.new.should be_a(Item::Base)
+    Item::Base.new(:kind => "invalid").should be_a(Item::Base)
+    Item::Generic.new(:kind => "invalid").should be_a(Item::Generic)
+    Item::Generic.new(:kind => "special").should be_a(Item::Generic)
+  end
+
+  it 'should revert to fallback-descendant' do
+    Item::Base.stub! :fallback_descendant => Item::Special
+    Item::Base.new.should be_a(Item::Special)
+    Item::Base.new(:kind => "invalid").should be_a(Item::Special)
+  end
+
   it 'should retain other attributes' do
     Item::Base.new(:kind => "special", :name => "Very").name.should == "Very"
   end
