@@ -14,8 +14,8 @@ module Bsm::Model::EagerDescendants
         return if @__eagerly_constantized
         load_path = Rails.root.join("app", "models")
         matcher   = /\A#{Regexp.escape(load_path.to_s)}\/(.*)\.rb\Z/
-        Dir[load_path.join(self.parent_name.underscore, "**", "*.rb")].sort.each do |file|
-          require file
+        Dir[load_path.join(self.parent_name.underscore, "**", "*.rb")].each do |file|
+          ActiveSupport::Dependencies.depend_on file
         end
         @__eagerly_constantized = true
       end
