@@ -9,7 +9,7 @@ Bundler.require :default, :test
 require 'active_support'
 require 'active_record'
 require 'rspec'
-require 'bsm_models'
+require 'bsm/model'
 
 require File.expand_path('../scenario/config/application', __FILE__)
 Bsm::Model::TestScenario.initialize!
