@@ -11,13 +11,15 @@ module Bsm::Model::EagerDescendants
     private
 
       def eager_constantize!
-        return if @__eagerly_constantized
-        load_path = Rails.root.join("app", "models")
-        matcher   = /\A#{Regexp.escape(load_path.to_s)}\/(.*)\.rb\Z/
-        Dir[load_path.join(self.parent_name.underscore, "**", "*.rb")].each do |file|
+        return if @__eagerly_constantized__
+
+        load_path = $LOAD_PATH.find do |path|
+          File.exist? File.join(path, "#{name.underscore}.rb")
+        end
+        Dir[File.join(load_path, parent_name.underscore, "**", "*.rb")].each do |file|
           ActiveSupport::Dependencies.depend_on file
         end
-        @__eagerly_constantized = true
+        @__eagerly_constantized__ = true
       end
 
   end
