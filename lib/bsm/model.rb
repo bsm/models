@@ -7,6 +7,7 @@ module Bsm
     autoload :Deletable, 'bsm/model/deletable'
     autoload :EagerDescendants, 'bsm/model/eager_descendants'
     autoload :StiConvertable, 'bsm/model/sti_convertable'
+    autoload :HasManySerialized, 'bsm/model/has_many_serialized'
   end
 
   class Railtie < ::Rails::Railtie

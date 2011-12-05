@@ -24,18 +24,27 @@ RSpec.configure do |c|
       t.string :type
       t.string :name
       t.boolean :fired, :null => false, :default => false
+      t.string :project_ids
     end
     base.connection.create_table :items do |t|
       t.integer :employee_id
       t.string :type
       t.string :name
     end
+    base.connection.create_table :projects do |t|
+    end
   end
+end
+
+class Project < ActiveRecord::Base
 end
 
 class Employee < ActiveRecord::Base
   include Bsm::Model::Abstract
   has_many :items, :class_name => "Item::Base"
+
+  include Bsm::Model::HasManySerialized
+  has_many_serialized :projects
 end
 
 class Manager < Employee
@@ -50,3 +59,4 @@ class Manager < Employee
     fired?
   end
 end
+
