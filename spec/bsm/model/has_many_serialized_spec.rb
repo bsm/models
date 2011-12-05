@@ -46,4 +46,10 @@ describe Bsm::Model::HasManySerialized do
     lambda { record.projects = ['invalid'] }.should raise_error(ActiveRecord::AssociationTypeMismatch)
   end
 
+  it 'should load saved assignment' do
+    record.projects = project
+    record.save!
+    record.reload.projects.should == [project]
+  end
+
 end
