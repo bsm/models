@@ -2,7 +2,8 @@ module Bsm::Model::Editable
   extend ActiveSupport::Concern
 
   included do
-    validate :must_be_editable, :on => :update
+    validate      :must_be_editable, :on => :update
+    attr_accessor :force_editable
   end
 
   def editable?
@@ -10,7 +11,7 @@ module Bsm::Model::Editable
   end
 
   def immutable?
-    !editable?
+    !force_editable && !editable?
   end
 
   protected
