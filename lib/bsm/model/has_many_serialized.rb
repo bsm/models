@@ -50,7 +50,8 @@ module Bsm::Model::HasManySerialized
         end
 
         model.redefine_method(attribute_name) do
-          read_attribute(attribute_name)
+          value = read_attribute(attribute_name)
+          value.respond_to?(:unserialized_value) ? value.unserialized_value : value
         end
       end
 
