@@ -1,12 +1,6 @@
 rvm:
   - 1.9.2
   - 1.9.3
-  - ree
 gemfiles:
   - Gemfile
   - Gemfile.rails-3.1.x
-matrix:
-  exclude:
-    - rvm: ree
-      gemfile: Gemfile
-
