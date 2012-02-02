@@ -49,10 +49,10 @@ module Bsm::Model::HasManySerialized
           klass.where(klass.primary_key => send(attribute_name))
         end
 
+
         model.redefine_method(attribute_name) do
-          value = read_attribute(attribute_name)
-          value.respond_to?(:unserialized_value) ? value.unserialized_value : value
-        end
+          read_attribute(attribute_name)
+        end if ActiveRecord::VERSION::STRING < "3.2.0"
       end
 
       def define_writers
@@ -68,7 +68,7 @@ module Bsm::Model::HasManySerialized
         end
 
         model.redefine_method("#{attribute_name}=") do |values|
-          send "#{name}=", klass.where(klass.primary_key => Array.wrap(values)).to_a
+          send "#{name}=", klass.where(klass.primary_key => Array.wrap(values)).select(:id).to_a
         end
       end
 
