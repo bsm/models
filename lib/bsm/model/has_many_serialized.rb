@@ -49,7 +49,6 @@ module Bsm::Model::HasManySerialized
           klass.where(klass.primary_key => send(attribute_name))
         end
 
-
         model.redefine_method(attribute_name) do
           read_attribute(attribute_name)
         end if ActiveRecord::VERSION::STRING < "3.2.0"
