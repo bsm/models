@@ -1,3 +1,5 @@
+require 'base64'
+
 class Bsm::Model::Coders::MarshalColumn < Bsm::Model::Coders::AbstractColumn
 
   def self.rescue_errors
