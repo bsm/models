@@ -8,6 +8,7 @@ module Bsm
     autoload :EagerDescendants, 'bsm/model/eager_descendants'
     autoload :StiConvertable, 'bsm/model/sti_convertable'
     autoload :HasManySerialized, 'bsm/model/has_many_serialized'
+    autoload :Coders,   'bsm/model/coders'
   end
 
   class Railtie < ::Rails::Railtie
