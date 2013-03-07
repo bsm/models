@@ -12,7 +12,6 @@ describe Bsm::Model::Coders::JsonColumn do
 
   it 'should dump objects' do
     subject.dump(a: 1, b: 2).should be_instance_of(String)
-    subject.dump(a: 1, b: 2).encoding.to_s.should == "US-ASCII"
   end
 
   it 'should create quotable strings objects' do
