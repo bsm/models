@@ -19,7 +19,7 @@ class Bsm::Model::Coders::AbstractColumn
   def load(string)
     return object_class.new if object_class != Object && string.nil?
     begin
-      obj = _load(string) unless string.nil?
+      obj = object_class === string ? string : _load(string)
 
       unless obj.is_a?(object_class) || obj.nil?
         raise ActiveRecord::SerializationTypeMismatch,

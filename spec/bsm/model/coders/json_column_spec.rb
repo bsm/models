@@ -40,6 +40,10 @@ describe Bsm::Model::Coders::JsonColumn do
     basic.load("INVALID").should == "INVALID"
   end
 
+  it 'should load already decoded values' do
+    subject.load({a: 1, b: 2}).should == {a: 1, b: 2}
+  end
+
   it 'should raise errrors on type missmatch' do
     lambda {
       subject.load(subject.dump([1, 2]))
