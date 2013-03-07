@@ -1,3 +1,5 @@
+require 'bsm/model/coders/json_column'
+
 module Bsm::Model::HasManySerialized
   extend ActiveSupport::Concern
 
@@ -5,25 +7,6 @@ module Bsm::Model::HasManySerialized
 
     def has_many_serialized(name, options = {})
       Builder.build(self, name.to_sym, options)
-    end
-
-  end
-
-  class Coder
-
-    def dump(obj)
-      ActiveSupport::JSON.encode(obj)
-    end
-
-    def load(value)
-      return [] if value.nil?
-      return value unless value.is_a?(String)
-
-      obj = ActiveSupport::JSON.decode(value) || []
-      unless obj.is_a?(Array)
-        raise ActiveRecord::SerializationTypeMismatch, "Attribute was supposed to be an Array, but was a #{obj.class}"
-      end
-      obj
     end
 
   end
@@ -39,7 +22,7 @@ module Bsm::Model::HasManySerialized
     protected
 
       def serialize_attribute
-        model.serialize attribute_name, Coder.new
+        model.serialize attribute_name, ::Bsm::Model::Coders::JsonColumn.new(Array)
       end
 
       def define_readers
@@ -63,11 +46,11 @@ module Bsm::Model::HasManySerialized
             next if record.is_a?(klass)
             raise ActiveRecord::AssociationTypeMismatch, "#{klass.name} expected, got #{record.class}"
           end
-          write_attribute attribute_name, records.map(&:id)
+          write_attribute attribute_name, records.map(&:id).sort
         end
 
         model.redefine_method("#{attribute_name}=") do |values|
-          send "#{name}=", klass.where(klass.primary_key => Array.wrap(values)).select(:id).to_a
+          send "#{name}=", klass.where(klass.primary_key => Array.wrap(values)).select(:id).to_a.sort
         end
       end
 

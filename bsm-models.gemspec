@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name        = "bsm-models"
   s.summary     = "BSM's very custom model extensions"
   s.description = ""
-  s.version     = '0.5.4'
+  s.version     = '0.5.5'
 
   s.authors     = ["Dimitrij Denissenko"]
   s.email       = "dimitrij@blacksquaremedia.com"

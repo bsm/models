@@ -9,10 +9,14 @@ describe Bsm::Model::HasManySerialized do
     Project.new.tap(&:save!)
   end
 
+  let :project2 do
+    Project.new.tap(&:save!)
+  end
+
   it { record.should be_a(described_class) }
 
   it 'should define serialize attributes' do
-    record.serialized_attributes['project_ids'].should be_a(described_class::Coder)
+    record.serialized_attributes['project_ids'].should be_a(Bsm::Model::Coders::JsonColumn)
   end
 
   it 'should define readers' do
@@ -44,6 +48,20 @@ describe Bsm::Model::HasManySerialized do
 
   it 'should prevent invalid record assignments' do
     lambda { record.projects = ['invalid'] }.should raise_error(ActiveRecord::AssociationTypeMismatch)
+  end
+
+  it 'should store references consistently' do
+    # Create in order
+    project
+    project2
+
+    # Assign
+    record.project_ids = [project2.id, project.id]
+    record.save!
+    record.project_ids.should == [project.id, project2.id]
+
+    record.reload.project_ids = [project2.id, project.id]
+    record.should_not be_changed
   end
 
   it 'should load saved assignment' do
