@@ -20,9 +20,7 @@ module Bsm::Model::StiConvertable
       klass = real_descendants.find {|k| k.kind == kind } || fallback_descendant
       return super if klass == self
 
-      klass.with_scope(methods.include?(:current_scope) ? current_scope : current_scoped_methods) do # AR 3.0 compatibility
-        klass.new(attributes, *args, &block)
-      end
+      klass.new(attributes, *args, &block)
     end
 
     def real_descendants

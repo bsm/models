@@ -1,3 +1,3 @@
 class Item::Special < Item::Base
-  attr_protected :employee_id
+  attr_protected :employee_id  if Rails::VERSION::MAJOR < 4
 end

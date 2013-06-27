@@ -1,6 +1,6 @@
 class Bsm::Model::TestScenario < Rails::Application
   config.root = File.expand_path('../../', __FILE__)
-  config.active_support.deprecation = $stderr
+  config.eager_load = false
 
   def build_middleware_stack
     nil

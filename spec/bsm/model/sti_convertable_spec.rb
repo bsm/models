@@ -20,33 +20,36 @@ describe Bsm::Model::StiConvertable do
   end
 
   it 'should initialize new objects by kind' do
-    Item::Base.new(:kind => "generic").should be_a(Item::Generic)
+    Item::Base.new(kind: "generic").should be_instance_of(Item::Generic)
   end
 
   it 'should ignore invalid kinds' do
-    Item::Base.new.should be_a(Item::Base)
-    Item::Base.new(:kind => "invalid").should be_a(Item::Base)
-    Item::Generic.new(:kind => "invalid").should be_a(Item::Generic)
-    Item::Generic.new(:kind => "special").should be_a(Item::Generic)
+    Item::Base.new.should be_instance_of(Item::Base)
+    Item::Base.new(kind: "invalid").should be_instance_of(Item::Base)
+    Item::Generic.new(kind: "invalid").should be_instance_of(Item::Generic)
+    Item::Generic.new(kind: "special").should be_instance_of(Item::Generic)
   end
 
   it 'should revert to fallback-descendant' do
-    Item::Base.stub! :fallback_descendant => Item::Special
-    Item::Base.new.should be_a(Item::Special)
-    Item::Base.new(:kind => "invalid").should be_a(Item::Special)
+    Item::Base.stub! fallback_descendant: Item::Special
+    Item::Base.new.should be_instance_of(Item::Special)
+    Item::Base.new(kind: "invalid").should be_instance_of(Item::Special)
   end
 
   it 'should retain other attributes' do
-    Item::Base.new(:kind => "special", :name => "Very").name.should == "Very"
+    Item::Base.new(kind: "special", name: "Very").name.should == "Very"
   end
 
   it 'should respect mass-assignment rules' do
-    Item::Base.new(:kind => "generic", :employee_id => 1).employee_id.should == 1
-    Item::Base.new(:kind => "special", :employee_id => 1).employee_id.should be_nil
-  end
+    Item::Base.new(kind: "generic", employee_id: 1).employee_id.should == 1
+    Item::Base.new(kind: "special", employee_id: 1).employee_id.should be_nil
+  end if Rails::VERSION::MAJOR < 4
 
   it 'should respect model scopes' do
-    Employee.new.items.new(:kind => "generic").should be_a(Item::Generic)
+    manager = Manager.create! name: "Boss"
+    item    = manager.items.create! kind: "generic"
+    item.should be_instance_of(Item::Generic)
+    item.reload.employee.should == manager
   end
 
 end

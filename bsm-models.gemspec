@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name        = "bsm-models"
   s.summary     = "BSM's very custom model extensions"
   s.description = ""
-  s.version     = '0.5.6'
+  s.version     = '0.6.0'
 
   s.authors     = ["Dimitrij Denissenko"]
   s.email       = "dimitrij@blacksquaremedia.com"
@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "railties", ">= 3.1.0"
 
   s.add_development_dependency "rspec"
-  s.add_development_dependency "sqlite3-ruby"
+  s.add_development_dependency "sqlite3"
   s.add_development_dependency "shoulda-matchers"
 
 end

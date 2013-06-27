@@ -6,7 +6,7 @@ module Bsm::Model::HasManySerialized
   module ClassMethods
 
     def has_many_serialized(name, options = {})
-      Builder.build(self, name.to_sym, options)
+      ActiveRecord::VERSION::STRING < '4.0.0' ? Builder.build(self, name.to_sym, options) : Builder.build(self, name.to_sym, options, {})
     end
 
   end

@@ -4,7 +4,7 @@ module Bsm::Model::EagerDescendants
   module ClassMethods
 
     def descendants
-      eager_constantize!
+      eager_constantize! 
       super
     end
 
@@ -22,5 +22,5 @@ module Bsm::Model::EagerDescendants
         @__eagerly_constantized__ = true
       end
 
-  end
+  end unless Rails.application.config.eager_load
 end

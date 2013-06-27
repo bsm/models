@@ -16,7 +16,7 @@ describe Bsm::Model::HasManySerialized do
   it { record.should be_a(described_class) }
 
   it 'should define serialize attributes' do
-    record.serialized_attributes['project_ids'].should be_a(Bsm::Model::Coders::JsonColumn)
+    record.class.serialized_attributes['project_ids'].should be_a(Bsm::Model::Coders::JsonColumn)
   end
 
   it 'should define readers' do

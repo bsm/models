@@ -2,9 +2,7 @@ ENV["RAILS_ENV"] ||= 'test'
 
 $: << File.dirname(__FILE__) + '/../lib'
 require 'rubygems'
-require 'bundler'
-Bundler.setup
-Bundler.require :default, :test
+require 'bundler/setup'
 
 require 'active_support'
 require 'active_record'
