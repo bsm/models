@@ -22,5 +22,5 @@ module Bsm::Model::EagerDescendants
         @__eagerly_constantized__ = true
       end
 
-  end unless Rails.application.config.eager_load
+  end unless Rails.application.config.respond_to?(:eager_load) && Rails.application.config.eager_load
 end
