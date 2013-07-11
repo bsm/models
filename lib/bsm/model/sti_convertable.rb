@@ -16,7 +16,7 @@ module Bsm::Model::StiConvertable
 
   # AR <4.0 compatibility
   def self.scoping(klass, current_scope, &block)
-    klass.with_scope(current_scope, &block)
+    klass.send(:with_scope, current_scope, &block)
   end if ActiveRecord::VERSION::MAJOR < 4
 
   module ClassMethods
