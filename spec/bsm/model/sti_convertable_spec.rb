@@ -45,9 +45,9 @@ describe Bsm::Model::StiConvertable do
     Item::Base.new(kind: "special", employee_id: 1).employee_id.should be_nil
   end if Rails::VERSION::MAJOR < 4
 
-  it 'should respect model scopes' do
+  it 'should retain model scopes in relation clones' do
     manager = Manager.create! name: "Boss"
-    item    = manager.items.create! kind: "generic"
+    item    = manager.items.limit(10).create! kind: "generic"
     item.should be_instance_of(Item::Generic)
     item.reload.employee.should == manager
   end

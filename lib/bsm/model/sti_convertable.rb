@@ -10,6 +10,15 @@ module Bsm::Model::StiConvertable
     METHOD
   end
 
+  def self.scoping(*)
+    yield
+  end
+
+  # AR <4.0 compatibility
+  def self.scoping(klass, current_scope, &block)
+    klass.with_scope(current_scope, &block)
+  end if ActiveRecord::VERSION::MAJOR < 4
+
   module ClassMethods
 
     # @Override: Allow to specify a kind
@@ -20,7 +29,7 @@ module Bsm::Model::StiConvertable
       klass = real_descendants.find {|k| k.kind == kind } || fallback_descendant
       return super if klass == self
 
-      klass.new(attributes, *args, &block)
+      Bsm::Model::StiConvertable.scoping(klass, current_scope) { klass.new(attributes, *args, &block) }
     end
 
     def real_descendants
