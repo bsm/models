@@ -22,7 +22,7 @@ describe Bsm::Model::Abstract do
 
   it 'should allow allow custom evaluation of model_instance_abstract?' do
     employee = Employee.new
-    employee.stub! :abstract_model_instance? => false
+    employee.stub abstract_model_instance?: false
     employee.tap(&:valid?).errors[:base].should be_empty
   end
 

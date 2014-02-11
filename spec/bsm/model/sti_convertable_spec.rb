@@ -31,7 +31,7 @@ describe Bsm::Model::StiConvertable do
   end
 
   it 'should revert to fallback-descendant' do
-    Item::Base.stub! fallback_descendant: Item::Special
+    Item::Base.stub fallback_descendant: Item::Special
     Item::Base.new.should be_instance_of(Item::Special)
     Item::Base.new(kind: "invalid").should be_instance_of(Item::Special)
   end
