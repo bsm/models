@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.files        = Dir['README.markdown', 'lib/**/*']
 
   s.add_dependency "abstract"
-  s.add_dependency "activerecord", ">= 4.0.0", "< 4.2.0"
-  s.add_dependency "railties", ">= 4.0.0", "< 4.2.0"
+  s.add_dependency "activerecord", ">= 4.0.0", "< 4.1.0"
+  s.add_dependency "railties", ">= 4.0.0", "< 4.1.0"
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "sqlite3"

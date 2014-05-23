@@ -5,18 +5,27 @@ module Bsm::Model::HasManySerialized
 
   module ClassMethods
 
-    def has_many_serialized(name, options = {})
-      ActiveRecord::VERSION::STRING < '4.0.0' ? Builder.build(self, name.to_sym, options) : Builder.build(self, name.to_sym, options, {})
+    def has_many_serialized(name, scope = nil, options = {})
+      Builder.build(self, name, scope, options)
     end
 
   end
 
-  class Builder < ActiveRecord::Associations::Builder::Association
+  class Builder < ActiveRecord::Associations::Builder::CollectionAssociation
 
     def build
-      validate_options
       serialize_attribute
-      define_accessors
+      super.tap do
+        define_accessors
+      end
+    end
+
+    def macro
+      :has_many
+    end
+
+    def valid_dependent_options
+      []
     end
 
     protected
@@ -25,20 +34,20 @@ module Bsm::Model::HasManySerialized
         model.serialize attribute_name, ::Bsm::Model::Coders::JsonColumn.new(Array)
       end
 
+      def define_accessors
+        super if reflection
+      end
+
       def define_readers
-        name, attribute_name, klass = self.name, self.attribute_name, self.klass
+        name, attribute_name, klass = self.name, self.attribute_name, reflection.klass
 
         model.redefine_method(name) do
           klass.where(klass.primary_key => send(attribute_name))
         end
-
-        model.redefine_method(attribute_name) do
-          read_attribute(attribute_name)
-        end if ActiveRecord::VERSION::STRING < "3.2.0"
       end
 
       def define_writers
-        name, attribute_name, klass = self.name, self.attribute_name, self.klass
+        name, attribute_name, klass = self.name, self.attribute_name, reflection.klass
 
         model.redefine_method("#{name}=") do |records|
           records = Array.wrap(records)
@@ -56,14 +65,6 @@ module Bsm::Model::HasManySerialized
 
       def attribute_name
         @attribute_name ||= "#{name.to_s.singularize}_ids"
-      end
-
-      def klass
-        @klass ||= class_name.constantize
-      end
-
-      def class_name
-        @class_name ||= options[:class_name] || name.to_s.singularize.camelize
       end
 
   end
