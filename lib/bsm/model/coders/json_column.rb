@@ -1,7 +1,7 @@
 class Bsm::Model::Coders::JsonColumn < Bsm::Model::Coders::AbstractColumn
 
   def self.rescue_errors
-    [ MultiJson::DecodeError ]
+    [ ::JSON::ParserError ]
   end
 
   def dump(obj)

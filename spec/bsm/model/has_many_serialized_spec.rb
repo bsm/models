@@ -47,7 +47,7 @@ describe Bsm::Model::HasManySerialized do
   end
 
   it 'should prevent invalid record assignments' do
-    lambda { record.projects = ['invalid'] }.should raise_error(ActiveRecord::AssociationTypeMismatch)
+    -> { record.projects = ['invalid'] }.should raise_error(ActiveRecord::AssociationTypeMismatch)
   end
 
   it 'should store references consistently' do
