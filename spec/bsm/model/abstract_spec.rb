@@ -16,8 +16,8 @@ describe Bsm::Model::Abstract do
   end
 
   it 'should evaluate if instance is abstract' do
-    Employee.new.should be_abstract_model_instance
-    Manager.new.should_not be_abstract_model_instance
+    Employee.new.send(:abstract_model_instance?).should eq(true)
+    Manager.new.send(:abstract_model_instance?).should eq(false)
   end
 
   it 'should allow allow custom evaluation of model_instance_abstract?' do

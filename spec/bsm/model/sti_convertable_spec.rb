@@ -16,7 +16,7 @@ describe Bsm::Model::StiConvertable do
   end
 
   it 'should query real descendants' do
-    Item::Base.should have(2).real_descendants
+    Item::Base.real_descendants.size.should eq(2)
   end
 
   it 'should initialize new objects by kind' do

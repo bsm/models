@@ -7,6 +7,7 @@ require 'bundler/setup'
 require 'active_support'
 require 'active_record'
 require 'rspec'
+require 'rspec/its'
 require 'bsm/model'
 
 require File.expand_path('../scenario/config/application', __FILE__)
@@ -15,6 +16,12 @@ ActiveRecord::Base.configurations["test"] = { 'adapter' => 'sqlite3', 'database'
 
 
 RSpec.configure do |c|
+  c.expect_with :rspec do |c|
+    c.syntax = [:expect, :should]
+  end
+  c.mock_with :rspec do |c|
+    c.syntax = [:expect, :should]
+  end
   c.before(:all) do
     base = ActiveRecord::Base
     base.establish_connection(:test)

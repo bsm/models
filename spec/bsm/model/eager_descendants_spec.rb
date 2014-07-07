@@ -11,7 +11,7 @@ describe Bsm::Model::EagerDescendants do
   end
 
   it 'should pre-load descendants' do
-    Item::Base.descendants.should have(2).items
+    Item::Base.descendants.size.should eq(2)
   end
 
 end
