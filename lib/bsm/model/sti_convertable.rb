@@ -47,4 +47,7 @@ module Bsm::Model::StiConvertable
   end
 
   delegate :kind, :to => 'self.class'
+
+  def kind=(_)
+  end
 end

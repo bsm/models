@@ -52,4 +52,10 @@ describe Bsm::Model::StiConvertable do
     item.reload.employee.should == manager
   end
 
+  it 'should provide no-op kind writer on instance level for form compatibility' do
+    special = Item::Special.new
+    special.kind = 'other'
+    special.kind.should == 'special'
+  end
+
 end
