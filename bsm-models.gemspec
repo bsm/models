@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.name        = "bsm-models"
   s.summary     = "BSM's very custom model extensions"
   s.description = ""
-  s.version     = '0.8.1'
+  s.version     = '0.8.2'
 
   s.authors     = ["Dimitrij Denissenko"]
   s.email       = "dimitrij@blacksquaremedia.com"
@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.files        = Dir['README.markdown', 'lib/**/*']
 
   s.add_dependency "abstract"
-  s.add_dependency "activerecord", ">= 4.1.0", "< 4.2.0"
-  s.add_dependency "railties", ">= 4.1.0", "< 4.2.0"
+  s.add_dependency "activerecord", ">= 4.1.0", "< 5.0.0"
+  s.add_dependency "railties", ">= 4.1.0", "< 5.0.0"
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "rspec-its"
