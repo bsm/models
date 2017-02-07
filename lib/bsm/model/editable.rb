@@ -7,7 +7,7 @@ module Bsm::Model::Editable
   end
 
   def editable?
-    not_implemented
+    raise NotImplementedError
   end
 
   def immutable?

@@ -2,11 +2,17 @@ module Bsm::Model::Deletable
   extend ActiveSupport::Concern
 
   included do
-    before_destroy :deletable?
+    before_destroy :check_deletable?
   end
 
   def deletable?
-    not_implemented
+    raise NotImplementedError
+  end
+
+  private
+
+  def check_deletable?
+    throw :abort unless deletable?
   end
 
 end

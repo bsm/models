@@ -43,7 +43,7 @@ module Bsm::Model::HasManySerialized
       end
     end
 
-    def macro
+    def self.macro
       :has_many
     end
 

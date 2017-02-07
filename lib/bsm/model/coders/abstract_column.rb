@@ -36,7 +36,7 @@ class Bsm::Model::Coders::AbstractColumn
   protected
 
     def _load(string)
-      not_implemented
+      raise NotImplementedError
     end
 
 end
