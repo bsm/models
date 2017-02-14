@@ -6,6 +6,7 @@ require 'bundler/setup'
 
 require 'active_support'
 require 'active_record'
+require 'action_controller'
 require 'rspec'
 require 'rspec/its'
 require 'bsm/model'
@@ -64,4 +65,3 @@ class Manager < Employee
     fired?
   end
 end
-

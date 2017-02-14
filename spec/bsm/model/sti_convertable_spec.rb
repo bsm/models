@@ -40,11 +40,6 @@ describe Bsm::Model::StiConvertable do
     Item::Base.new(kind: "special", name: "Very").name.should == "Very"
   end
 
-  it 'should respect mass-assignment rules' do
-    Item::Base.new(kind: "generic", employee_id: 1).employee_id.should == 1
-    Item::Base.new(kind: "special", employee_id: 1).employee_id.should be_nil
-  end if Rails::VERSION::MAJOR < 4
-
   it 'should retain model scopes in relation clones' do
     manager = Manager.create! name: "Boss"
     item    = manager.items.limit(10).create! kind: "generic"
@@ -56,6 +51,12 @@ describe Bsm::Model::StiConvertable do
     special = Item::Special.new
     special.kind = 'other'
     special.kind.should == 'special'
+  end
+
+  it 'should initialize from action controller parameters' do
+    generic = Item::Base.new(ActionController::Parameters.new(kind: "generic", name: "Very").permit(:kind, :name))
+    generic.should be_instance_of(Item::Generic)
+    generic.name.should eq("Very")
   end
 
 end

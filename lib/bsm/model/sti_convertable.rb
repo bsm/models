@@ -14,16 +14,11 @@ module Bsm::Model::StiConvertable
     yield
   end
 
-  # AR <4.0 compatibility
-  def self.scoping(klass, current_scope, &block)
-    klass.send(:with_scope, current_scope, &block)
-  end if ActiveRecord::VERSION::MAJOR < 4
-
   module ClassMethods
 
     # @Override: Allow to specify a kind
     def new(attributes = nil, *args, &block)
-      kind  = (attributes = attributes.with_indifferent_access).delete(:kind) if attributes.is_a?(Hash)
+      kind  = (attributes = attributes.with_indifferent_access).delete(:kind) if attributes.respond_to?(:delete)
       return super if real_type?
 
       klass = real_descendants.find {|k| k.kind == kind } || fallback_descendant

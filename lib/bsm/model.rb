@@ -1,4 +1,7 @@
-require 'rails'
+begin
+  require 'rails'
+rescue LoadError
+end
 
 module Bsm
   module Model
@@ -14,5 +17,5 @@ module Bsm
   class Railtie < ::Rails::Railtie
     require 'active_support/i18n'
     I18n.load_path << File.expand_path('../model/locale/en.yml', __FILE__)
-  end
+  end if defined?(::Rails::Railtie)
 end
