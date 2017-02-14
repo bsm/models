@@ -18,7 +18,7 @@ module Bsm::Model::StiConvertable
 
     # @Override: Allow to specify a kind
     def new(attributes = nil, *args, &block)
-      kind = attributes.delete(:kind) if attributes.respond_to?(:delete)
+      kind = attributes.delete(:kind) { attributes.delete('kind') }  if attributes.respond_to?(:delete)
       return super if real_type?
 
       klass = real_descendants.find {|k| k.kind == kind } || fallback_descendant
