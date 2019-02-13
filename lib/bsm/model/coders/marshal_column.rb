@@ -3,7 +3,7 @@ require 'base64'
 class Bsm::Model::Coders::MarshalColumn < Bsm::Model::Coders::AbstractColumn
 
   def self.rescue_errors
-    [ ArgumentError, TypeError ]
+    [ArgumentError, TypeError]
   end
 
   def dump(obj)
@@ -12,8 +12,8 @@ class Bsm::Model::Coders::MarshalColumn < Bsm::Model::Coders::AbstractColumn
 
   protected
 
-    def _load(string)
-      Marshal.load(Base64.decode64(string))
-    end
+  def _load(string)
+    Marshal.load(Base64.decode64(string))
+  end
 
 end

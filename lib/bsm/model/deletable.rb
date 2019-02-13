@@ -14,5 +14,4 @@ module Bsm::Model::Deletable
   def check_deletable?
     throw :abort unless deletable?
   end
-
 end

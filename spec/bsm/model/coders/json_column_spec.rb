@@ -11,43 +11,43 @@ describe Bsm::Model::Coders::JsonColumn do
   end
 
   it 'should dump objects' do
-    subject.dump(a: 1, b: 2).should be_instance_of(String)
+    expect(subject.dump(a: 1, b: 2)).to be_instance_of(String)
   end
 
   it 'should create quotable strings objects' do
-    ActiveRecord::Base.connection.quote(subject.dump(a: "x", b: 2, c: [3])).should be_instance_of(String)
+    expect(ActiveRecord::Base.connection.quote(subject.dump(a: 'x', b: 2, c: [3]))).to be_instance_of(String)
   end
 
   it 'should load objects' do
-    subject.load(subject.dump(a: 1, b: 2)).should == { "a" => 1, "b" => 2 }
-    subject.load(subject.dump(a: "x", b: 2, c: [3])).should == { "a" => "x", "b" => 2, "c" => [3] }
+    expect(subject.load(subject.dump(a: 1, b: 2))).to eq('a' => 1, 'b' => 2)
+    expect(subject.load(subject.dump(a: 'x', b: 2, c: [3]))).to eq('a' => 'x', 'b' => 2, 'c' => [3])
   end
 
   it 'should correctly convert load blanks' do
-    subject.load(nil).should == {}
-    subject.load("").should == {}
-    basic.load(nil).should == nil
+    expect(subject.load(nil)).to eq({})
+    expect(subject.load('')).to eq({})
+    expect(basic.load(nil)).to be_nil
   end
 
   it 'should correctly convert blanks' do
-    subject.load(nil).should == {}
-    basic.load(nil).should == nil
+    expect(subject.load(nil)).to eq({})
+    expect(basic.load(nil)).to be_nil
   end
 
   it 'should not fail on incorrect inputs' do
-    subject.load("INVALID").should == {}
-    subject.load("").should == {}
-    basic.load("INVALID").should == "INVALID"
+    expect(subject.load('INVALID')).to eq({})
+    expect(subject.load('')).to eq({})
+    expect(basic.load('INVALID')).to eq('INVALID')
   end
 
   it 'should load already decoded values' do
-    subject.load({a: 1, b: 2}).should == {a: 1, b: 2}
+    expect(subject.load(a: 1, b: 2)).to eq(a: 1, b: 2)
   end
 
   it 'should raise errrors on type missmatch' do
-    lambda {
+    expect do
       subject.load(subject.dump([1, 2]))
-    }.should raise_error(ActiveRecord::SerializationTypeMismatch, /was supposed to be a Hash, but was a Array/)
+    end.to raise_error(ActiveRecord::SerializationTypeMismatch, /was supposed to be a Hash, but was a Array/)
   end
 
 end

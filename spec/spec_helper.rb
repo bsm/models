@@ -1,6 +1,6 @@
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
-$: << File.dirname(__FILE__) + '/../lib'
+$LOAD_PATH << File.dirname(__FILE__) + '/../lib'
 require 'rubygems'
 require 'bundler/setup'
 
@@ -11,25 +11,18 @@ require 'rspec'
 require 'rspec/its'
 require 'bsm/model'
 
-require File.expand_path('../scenario/config/application', __FILE__)
+require File.expand_path('scenario/config/application', __dir__)
 Bsm::Model::TestScenario.initialize!
-ActiveRecord::Base.configurations["test"] = { 'adapter' => 'sqlite3', 'database' => ":memory:" }
-
+ActiveRecord::Base.configurations['test'] = { 'adapter' => 'sqlite3', 'database' => ':memory:' }
 
 RSpec.configure do |c|
-  c.expect_with :rspec do |c|
-    c.syntax = [:expect, :should]
-  end
-  c.mock_with :rspec do |c|
-    c.syntax = [:expect, :should]
-  end
   c.before(:all) do
     base = ActiveRecord::Base
     base.establish_connection(:test)
     base.connection.create_table :employees do |t|
       t.string :type
       t.string :name
-      t.boolean :fired, :null => false, :default => false
+      t.boolean :fired, null: false, default: false
       t.string :project_ids
     end
     base.connection.create_table :items do |t|
@@ -47,7 +40,7 @@ end
 
 class Employee < ActiveRecord::Base
   include Bsm::Model::Abstract
-  has_many :items, :class_name => "Item::Base"
+  has_many :items, class_name: 'Item::Base'
 
   include Bsm::Model::HasManySerialized
   has_many_serialized :projects

@@ -10,6 +10,6 @@ describe Bsm::Model::Coders::AbstractColumn do
     described_class.new
   end
 
-  its(:object_class) { should == Hash }
+  its(:object_class) { is_expected.to eq(Hash) }
 
 end

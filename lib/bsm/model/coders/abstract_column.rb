@@ -8,18 +8,19 @@ class Bsm::Model::Coders::AbstractColumn
   attr_reader :object_class
 
   # @param [Class] obejct_class
-  def initialize(object_class = Object)
+  def initialize(object_class=Object)
     @object_class = object_class
   end
 
-  def dump(obj)
+  def dump(_obj)
     not_implemented
   end
 
   def load(string)
     return object_class.new if object_class != Object && string.nil?
+
     begin
-      obj = object_class === string ? string : _load(string)
+      obj = string.is_a?(object_class) ? string : _load(string)
 
       unless obj.is_a?(object_class) || obj.nil?
         raise ActiveRecord::SerializationTypeMismatch,
@@ -35,8 +36,8 @@ class Bsm::Model::Coders::AbstractColumn
 
   protected
 
-    def _load(string)
-      raise NotImplementedError
-    end
+  def _load(_string)
+    raise NotImplementedError
+  end
 
 end

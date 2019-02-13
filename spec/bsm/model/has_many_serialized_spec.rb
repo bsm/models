@@ -13,37 +13,37 @@ describe Bsm::Model::HasManySerialized do
     Project.new.tap(&:save!)
   end
 
-  it { record.should be_a(described_class) }
+  it { expect(record).to be_a(described_class) }
 
   it 'should define readers' do
-    record.should respond_to('project_ids')
-    record.should respond_to('projects')
+    expect(record).to respond_to('project_ids')
+    expect(record).to respond_to('projects')
 
-    record.project_ids.should == []
-    record.projects.should == []
-    record.projects.should be_a(ActiveRecord::Relation)
+    expect(record.project_ids).to eq([])
+    expect(record.projects).to eq([])
+    expect(record.projects).to be_a(ActiveRecord::Relation)
   end
 
   it 'should define writers' do
-    record.should respond_to('project_ids=')
-    record.should respond_to('projects=')
+    expect(record).to respond_to('project_ids=')
+    expect(record).to respond_to('projects=')
   end
 
   it 'should allow sanitized ID assignments' do
-    record.project_ids = ["", project.id]
-    record.project_ids.should == [project.id]
+    record.project_ids = ['', project.id]
+    expect(record.project_ids).to eq([project.id])
     record.project_ids = [project.id.to_s]
-    record.project_ids.should == [project.id]
+    expect(record.project_ids).to eq([project.id])
   end
 
   it 'should allow record assignments' do
     record.projects = project
-    record.projects.to_a.should == [project]
-    record.project_ids.should == [project.id]
+    expect(record.projects.to_a).to eq([project])
+    expect(record.project_ids).to eq([project.id])
   end
 
   it 'should prevent invalid record assignments' do
-    -> { record.projects = ['invalid'] }.should raise_error(ActiveRecord::AssociationTypeMismatch)
+    expect { record.projects = ['invalid'] }.to raise_error(ActiveRecord::AssociationTypeMismatch)
   end
 
   it 'should store references consistently' do
@@ -54,16 +54,16 @@ describe Bsm::Model::HasManySerialized do
     # Assign
     record.project_ids = [project2.id, project.id]
     record.save!
-    record.project_ids.should == [project.id, project2.id]
+    expect(record.project_ids).to eq([project.id, project2.id])
 
     record.reload.project_ids = [project2.id, project.id]
-    record.should_not be_changed
+    expect(record).not_to be_changed
   end
 
   it 'should load saved assignment' do
     record.projects = project
     record.save!
-    record.reload.projects.should == [project]
+    expect(record.reload.projects).to eq([project])
   end
 
 end

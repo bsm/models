@@ -3,17 +3,17 @@ require 'spec_helper'
 describe Bsm::Model::Deletable do
 
   let :record do
-    Manager.create! :name => "Boss"
+    Manager.create! name: 'Boss'
   end
 
   it 'should be includable' do
-    Manager.included_modules.should include(described_class)
+    expect(Manager.included_modules).to include(described_class)
   end
 
   it 'should constrain deletion of records' do
-    record.tap(&:destroy).should_not be_destroyed
+    expect(record.tap(&:destroy)).not_to be_destroyed
     record.fired = true
-    record.tap(&:destroy).should be_destroyed
+    expect(record.tap(&:destroy)).to be_destroyed
   end
 
 end

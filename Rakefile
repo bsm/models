@@ -1,9 +1,9 @@
-require 'rake'
-require 'rspec/mocks/version'
-require 'rspec/core/rake_task'
+require 'bundler/setup'
 require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
 RSpec::Core::RakeTask.new(:spec)
+RuboCop::RakeTask.new(:rubocop)
 
-desc 'Default: run specs.'
-task :default => :spec
+task default: %i[rubocop spec]

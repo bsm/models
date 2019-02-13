@@ -15,10 +15,9 @@ module Bsm::Model::StiConvertable
   end
 
   module ClassMethods
-
     # @Override: Allow to specify a kind
-    def new(attributes = nil, *args, &block)
-      kind = attributes.delete(:kind) { attributes.delete('kind') }  if attributes.respond_to?(:delete)
+    def new(attributes=nil, *args, &block)
+      kind = attributes.delete(:kind) { attributes.delete('kind') } if attributes.respond_to?(:delete)
       return super if real_type?
 
       klass = real_descendants.find {|k| k.kind == kind } || fallback_descendant
@@ -38,11 +37,9 @@ module Bsm::Model::StiConvertable
     def kind
       name.demodulize.underscore
     end
-
   end
 
-  delegate :kind, :to => 'self.class'
+  delegate :kind, to: 'self.class'
 
-  def kind=(_)
-  end
+  def kind=(_val); end
 end

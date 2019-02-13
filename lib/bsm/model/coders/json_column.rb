@@ -1,7 +1,7 @@
 class Bsm::Model::Coders::JsonColumn < Bsm::Model::Coders::AbstractColumn
 
   def self.rescue_errors
-    [ ::JSON::ParserError ]
+    [::JSON::ParserError]
   end
 
   def dump(obj)
@@ -10,8 +10,8 @@ class Bsm::Model::Coders::JsonColumn < Bsm::Model::Coders::AbstractColumn
 
   protected
 
-    def _load(string)
-      ActiveSupport::JSON.decode(string)
-    end
+  def _load(string)
+    ActiveSupport::JSON.decode(string)
+  end
 
 end

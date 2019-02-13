@@ -4,11 +4,9 @@ module Bsm::Model::HasManySerialized
   extend ActiveSupport::Concern
 
   module ClassMethods
-
-    def has_many_serialized(name, scope = nil, options = {})
+    def has_many_serialized(name, scope=nil, options={})
       Builder.build(self, name, scope, options)
     end
-
   end
 
   class Builder < ActiveRecord::Associations::Builder::CollectionAssociation
@@ -33,6 +31,7 @@ module Bsm::Model::HasManySerialized
         records = Array.wrap(records)
         records.each do |record|
           next if record.is_a?(klass)
+
           raise ActiveRecord::AssociationTypeMismatch, "#{klass.name} expected, got #{record.class}"
         end
         write_attribute attribute_name, records.map(&:id).sort

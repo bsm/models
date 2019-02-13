@@ -1,0 +1,18 @@
+inherit_from:
+  - https://bitbucket.org/bsm/misc/raw/master/rubocop/default.yml
+
+AllCops:
+  TargetRubyVersion: "2.3"
+
+Naming/FileName:
+  Exclude:
+    - "lib/bsm-models.rb"
+
+Naming/PredicateName:
+  Exclude:
+    - "lib/bsm/model/has_many_serialized.rb"
+
+Security/MarshalLoad:
+  Exclude:
+    - "lib/bsm/model/coders/marshal_column.rb"
+

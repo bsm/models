@@ -8,13 +8,12 @@ module Bsm::Model::Abstract
       errors.add :base, :abstract if abstract_model_instance?
     end
 
-    class_eval <<-END_EVAL
+    class_eval <<-METHOD, __FILE__, __LINE__ + 1
       def abstract_model_instance?
-        self.class >= ::#{self.name}
+        self.class >= ::#{name}
       end
-    END_EVAL
+    METHOD
 
     protected :must_not_be_abstract, :abstract_model_instance?
   end
-
 end
