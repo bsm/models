@@ -13,7 +13,7 @@ require 'bsm/model'
 
 require File.expand_path('scenario/config/application', __dir__)
 Bsm::Model::TestScenario.initialize!
-ActiveRecord::Base.configurations['test'] = { 'adapter' => 'sqlite3', 'database' => ':memory:' }
+ActiveRecord::Base.configurations = { 'test' => { 'adapter' => 'sqlite3', 'database' => ':memory:' } }
 
 RSpec.configure do |c|
   c.before(:all) do

@@ -15,7 +15,7 @@ module Bsm::Model::EagerDescendants
       load_path = $LOAD_PATH.find do |path|
         File.exist? File.join(path, "#{name.underscore}.rb")
       end
-      Dir[File.join(load_path, parent_name.underscore, '**', '*.rb')].each do |file|
+      Dir[File.join(load_path, module_parent_name.underscore, '**', '*.rb')].each do |file|
         ActiveSupport::Dependencies.depend_on file
       end
       @__eagerly_constantized__ = true
