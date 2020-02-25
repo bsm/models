@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Bsm::Model::EagerDescendants do
-
   before do
     ActiveSupport::Dependencies.clear
   end
@@ -13,5 +12,4 @@ describe Bsm::Model::EagerDescendants do
   it 'should pre-load descendants' do
     expect(Item::Base.descendants.size).to eq(2)
   end
-
 end

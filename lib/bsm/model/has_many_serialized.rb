@@ -4,13 +4,12 @@ module Bsm::Model::HasManySerialized
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def has_many_serialized(name, scope=nil, options={})
+    def has_many_serialized(name, scope = nil, options = {})
       Builder.build(self, name, scope, options)
     end
   end
 
   class Builder < ActiveRecord::Associations::Builder::CollectionAssociation
-
     def self.build(model, name, *)
       model.serialize "#{name.to_s.singularize}_ids", ::Bsm::Model::Coders::JsonColumn.new(Array)
       super.tap do |reflection|
@@ -49,6 +48,5 @@ module Bsm::Model::HasManySerialized
     def valid_dependent_options
       []
     end
-
   end
 end

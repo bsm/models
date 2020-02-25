@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Bsm::Model::Editable do
-
   let :record do
     Manager.create! name: 'Boss', fired: true
   end
@@ -27,5 +26,4 @@ describe Bsm::Model::Editable do
     record.force_editable = true
     expect(record).not_to be_immutable
   end
-
 end

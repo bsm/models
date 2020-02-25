@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Bsm::Model::Deletable do
-
   let :record do
     Manager.create! name: 'Boss'
   end
@@ -15,5 +14,4 @@ describe Bsm::Model::Deletable do
     record.fired = true
     expect(record.tap(&:destroy)).to be_destroyed
   end
-
 end

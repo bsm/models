@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Bsm::Model::StiConvertable do
-
   it 'should be includable' do
     expect(Item::Base.new).to be_a(described_class)
   end
@@ -58,5 +57,4 @@ describe Bsm::Model::StiConvertable do
     expect(generic).to be_instance_of(Item::Generic)
     expect(generic.name).to eq('Very')
   end
-
 end

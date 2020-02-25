@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Bsm::Model::Abstract do
-
   it 'should be includable' do
     expect(Employee.included_modules).to include(described_class)
   end
@@ -25,5 +24,4 @@ describe Bsm::Model::Abstract do
     allow(employee).to receive_messages abstract_model_instance?: false
     expect(employee.tap(&:valid?).errors[:base]).to be_empty
   end
-
 end

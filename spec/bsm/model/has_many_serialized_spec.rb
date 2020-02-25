@@ -65,5 +65,4 @@ describe Bsm::Model::HasManySerialized do
     record.save!
     expect(record.reload.projects).to eq([project])
   end
-
 end

@@ -16,7 +16,7 @@ module Bsm::Model::StiConvertable
 
   module ClassMethods
     # @Override: Allow to specify a kind
-    def new(attributes=nil, *args, &block)
+    def new(attributes = nil, *args, &block)
       kind = attributes.delete(:kind) { attributes.delete('kind') } if attributes.respond_to?(:delete)
       return super if real_type?
 

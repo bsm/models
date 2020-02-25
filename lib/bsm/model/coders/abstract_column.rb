@@ -1,5 +1,4 @@
 class Bsm::Model::Coders::AbstractColumn
-
   def self.rescue_errors
     []
   end
@@ -8,7 +7,7 @@ class Bsm::Model::Coders::AbstractColumn
   attr_reader :object_class
 
   # @param [Class] obejct_class
-  def initialize(object_class=Object)
+  def initialize(object_class = Object)
     @object_class = object_class
   end
 
@@ -24,7 +23,7 @@ class Bsm::Model::Coders::AbstractColumn
 
       unless obj.is_a?(object_class) || obj.nil?
         raise ActiveRecord::SerializationTypeMismatch,
-          "Attribute was supposed to be a #{object_class}, but was a #{obj.class}"
+              "Attribute was supposed to be a #{object_class}, but was a #{obj.class}"
       end
       obj ||= object_class.new if object_class != Object
 
@@ -39,5 +38,4 @@ class Bsm::Model::Coders::AbstractColumn
   def _load(_string)
     raise NotImplementedError
   end
-
 end

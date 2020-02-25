@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Bsm::Model::Coders::JsonColumn do
-
   subject do
     described_class.new Hash
   end
@@ -49,5 +48,4 @@ describe Bsm::Model::Coders::JsonColumn do
       subject.load(subject.dump([1, 2]))
     end.to raise_error(ActiveRecord::SerializationTypeMismatch, /was supposed to be a Hash, but was a Array/)
   end
-
 end

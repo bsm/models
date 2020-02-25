@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Bsm::Model::Coders::AbstractColumn do
-
   subject do
     described_class.new Hash
   end
@@ -11,5 +10,4 @@ describe Bsm::Model::Coders::AbstractColumn do
   end
 
   its(:object_class) { is_expected.to eq(Hash) }
-
 end
