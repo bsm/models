@@ -1,6 +1,6 @@
 ENV['RAILS_ENV'] ||= 'test'
 
-$LOAD_PATH << File.dirname(__FILE__) + '/../lib'
+$LOAD_PATH << "#{File.dirname(__FILE__)}/../lib"
 require 'rubygems'
 require 'bundler/setup'
 
@@ -30,7 +30,8 @@ RSpec.configure do |c|
       t.string :type
       t.string :name
     end
-    base.connection.create_table :projects do |t|
+    base.connection.create_table :projects do |t| # rubocop:disable Style/SymbolProc
+      t.timestamps
     end
   end
 end

@@ -3,6 +3,7 @@ inherit_from:
 
 AllCops:
   TargetRubyVersion: "2.5"
+  SuggestExtensions: false
 
 Naming/FileName:
   Exclude:
@@ -15,4 +16,3 @@ Naming/PredicateName:
 Security/MarshalLoad:
   Exclude:
     - "lib/bsm/model/coders/marshal_column.rb"
-

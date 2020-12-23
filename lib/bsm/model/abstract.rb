@@ -9,9 +9,9 @@ module Bsm::Model::Abstract
     end
 
     class_eval <<-METHOD, __FILE__, __LINE__ + 1
-      def abstract_model_instance?
-        self.class >= ::#{name}
-      end
+      def abstract_model_instance? # def abstract_model_instance?
+        self.class >= ::#{name}    #   self.class >= ::ThisModel
+      end                          # end
     METHOD
 
     protected :must_not_be_abstract, :abstract_model_instance?

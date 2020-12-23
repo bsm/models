@@ -12,8 +12,7 @@ module Bsm::Model::HasManySerialized
   class Builder < ActiveRecord::Associations::Builder::CollectionAssociation
     def self.build(model, name, *)
       model.serialize "#{name.to_s.singularize}_ids", ::Bsm::Model::Coders::JsonColumn.new(Array)
-      super.tap do |reflection|
-      end
+      super
     end
 
     def self.define_accessors(model, reflection)

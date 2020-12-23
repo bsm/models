@@ -3,10 +3,11 @@ module Bsm::Model::StiConvertable
 
   included do
     include Bsm::Model::EagerDescendants
+
     class_eval <<-METHOD, __FILE__, __LINE__ + 1
-      def self.real_type?
-        self < ::#{name}
-      end
+      def self.real_type? # def real_type?
+        self < ::#{name}  #   self.class < ::ThisModel
+      end                 # end
     METHOD
   end
 
