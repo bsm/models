@@ -15,7 +15,7 @@ describe Bsm::Model::HasManySerialized do
 
   it { expect(record).to be_a(described_class) }
 
-  it 'should define readers' do
+  it 'defines readers' do
     expect(record).to respond_to('project_ids')
     expect(record).to respond_to('projects')
 
@@ -24,29 +24,29 @@ describe Bsm::Model::HasManySerialized do
     expect(record.projects).to be_a(ActiveRecord::Relation)
   end
 
-  it 'should define writers' do
+  it 'defines writers' do
     expect(record).to respond_to('project_ids=')
     expect(record).to respond_to('projects=')
   end
 
-  it 'should allow sanitized ID assignments' do
+  it 'allows sanitized ID assignments' do
     record.project_ids = ['', project.id]
     expect(record.project_ids).to eq([project.id])
     record.project_ids = [project.id.to_s]
     expect(record.project_ids).to eq([project.id])
   end
 
-  it 'should allow record assignments' do
+  it 'allows record assignments' do
     record.projects = project
     expect(record.projects.to_a).to eq([project])
     expect(record.project_ids).to eq([project.id])
   end
 
-  it 'should prevent invalid record assignments' do
+  it 'prevents invalid record assignments' do
     expect { record.projects = ['invalid'] }.to raise_error(ActiveRecord::AssociationTypeMismatch)
   end
 
-  it 'should store references consistently' do
+  it 'stores references consistently' do
     # Create in order
     project
     project2
@@ -60,7 +60,7 @@ describe Bsm::Model::HasManySerialized do
     expect(record).not_to be_changed
   end
 
-  it 'should load saved assignment' do
+  it 'loads saved assignment' do
     record.projects = project
     record.save!
     expect(record.reload.projects).to eq([project])
